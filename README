@@ -1,0 +1,7 @@
+This script uses any set of transcripts to identify cases where a transcript is split over multiple contigs/scaffolds.
+Transcripts are mapped to a genome using BLAT and split transcripts are identified.
+These cases are then merged into single scaffolds with 10 N's in between. 
+Instances whereby a merged event shares a contig/scaffold produce an attempted assembly using CAP3.
+Failed assemblies results in the selection of the largest merged event being retained and the remained being split back
+to their original contigs/scaffolds.
+All succesful assemblies and merged events are then combined into a new assembly.
