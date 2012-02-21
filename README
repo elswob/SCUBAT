@@ -1,5 +1,6 @@
-This script uses any set of transcripts to identify cases where a transcript is split over multiple genome fragments 
-and attempts to use this information to scaffold the genome. 
+This script uses any set of transcripts to identify cases where a transcript is split over multiple genome fragments and attempts to use this information to scaffold the genome. 
+
+It procedes via 6 steps:
 
 1. Align the transcripts to the genome:
 
