@@ -42,7 +42,7 @@ GetOptions (
 );
 
 if ($target_file eq "" || $query_file eq "" || $psl eq "" || $orientation eq "" || $overlap >20){
-	die("scaffold_contigs_using_BLAT_and_ESTs.pl \n-t contigs file \n-q transcripts file \n-p blat psl output \n-r blat orientation (0 = contigs against transcripts 1 = transcripts against contigs)\n-o overlap length (default 10, max 20)\n-c number of processors (default 1)\n-l min \% coverage length of transcript (default 90)\n-m mismatch score (default 0.92)");
+	die("scaffold_contigs_using_BLAT_and_ESTs.pl \n-t contigs file \n-q transcripts file \n-p blat psl output \n-r blat orientation (0 = contigs[target] transcripts[query] 1 = transcripts[target] contigs[query])\n-o overlap length (default 10, max 20)\n-c number of processors (default 1)\n-l min \% coverage length of transcript (default 90)\n-m mismatch score (default 0.92)");
 } 
 
 
@@ -53,7 +53,7 @@ unless (-d "$dir"){
 
 
 #adjust the mismatch value
-$mismatch = $mismatch / 10;
+$mismatch = $mismatch / 100;
 
 open S,">$dir/run_log.txt";
 my $cov_length_div = $cov_length / 100;
@@ -168,11 +168,17 @@ while (<B>){
 	#change search parameters based on order of blast
 	if ($orientation == 0){
 		$target = $array[13];
+		unless (exists $target_seq{$target}){
+			die("A target seq in the BLAT output is not in the target file!\nPerhaps you have the wrong orientation?\n");
+		}
 		$query = $array[9];
 		$start = $array[11];
 		$stop = $array[12];
 	}else{
 		$target = $array[9];
+		unless (exists $target_seq{$target}){
+			die("The target seq in the BLAT output is not in the target file!\nPerhaps you have the wrong orientation?\n");
+		}
 		$query = $array[13];
 		$start = $array[15];
 		$stop = $array[16];
@@ -262,6 +268,7 @@ foreach my $EST_value (sort keys %EST_hash){
 		elsif(keys (%{$EST_hash{$EST_value}}) == 1){
 			for my $contigID (keys %{$EST_hash{$EST_value}}){
 				next unless exists $query_length{$EST_value};
+				#print "$EST_hash{$EST_value}{$contigID}[1] - $EST_hash{$EST_value}{$contigID}[0] / $query_length{$EST_value} > $cov_length_div\n";
 				if ((($EST_hash{$EST_value}{$contigID}[1] - $EST_hash{$EST_value}{$contigID}[0]) / $query_length{$EST_value}) > $cov_length_div){
 					print OC ">$contigID.$EST_value\n$target_seq{$contigID}\n";
 					$count_single++;
@@ -645,7 +652,9 @@ for my $k1 (sort {$a<=>$b} keys %join_groups_final){
 		}
 		for my $k2 (keys %{$join_groups_final{$k1}}){
 			#`ln -s $pwd/$dir/merged_contigs/$join_groups_final{$k1}{$k2}.merge.fa $dir/join/$k1`;
-			system("ln -s $pwd/$dir/merged_contigs/$k2.merge.fa $dir/join/$k1");
+			unless (-e "$dir/join/$k1/$k2.merge.fa") {
+				system("ln -s $pwd/$dir/merged_contigs/$k2.merge.fa $dir/join/$k1");
+			}
 		}
 		#print "cat $dir/join/$k1/*.fa > $dir/join/$k1/$k1.cat\n";
 		#`cat $dir/join/$k1/*.fa > $dir/join/$k1/$k1.cat`;
@@ -660,7 +669,9 @@ for my $k1 (sort {$a<=>$b} keys %join_groups_final){
 	}else{
 		for my $k2 (keys %{$join_groups_final{$k1}}){
 			#`ln -s $pwd/$dir/merged_contigs/$join_groups_final{$k1}{$k2}.merge.fa $dir/singles`;
-			system("ln -s $pwd/$dir/merged_contigs/$k2.merge.fa $dir/singles");
+			unless (-e "$dir/singles/$k2.merge.fa") {
+				system("ln -s $pwd/$dir/merged_contigs/$k2.merge.fa $dir/singles");
+			}
 		}
 	}
 }
