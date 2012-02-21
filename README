@@ -10,7 +10,8 @@ It procedes via 6 steps:
 
 1. Align the transcripts to the genome:
 
-Externally - Use BLAT to align the transcripts to the genome with psl output, e.g. "blat -t=dna genome.fa -q=dna transcripts.fa -noHead out.psl"
+Externally - Use BLAT to align the transcripts to the genome with psl output, 
+e.g. "blat -t=dna genome.fa -q=dna transcripts.fa -noHead out.psl"
 
 2. Identify informative split transcripts:
 
