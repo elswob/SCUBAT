@@ -1,7 +1,33 @@
-This script uses any set of transcripts to identify cases where a transcript is split over multiple contigs/scaffolds.
-Transcripts are mapped to a genome using BLAT and split transcripts are identified.
-These cases are then merged into single scaffolds with 10 N's in between. 
-Instances whereby a merged event shares a contig/scaffold produce an attempted assembly using CAP3.
-Failed assemblies results in the selection of the largest merged event being retained and the remained being split back
-to their original contigs/scaffolds.
-All succesful assemblies and merged events are then combined into a new assembly.
+This script uses any set of transcripts to identify cases where a transcript is split over multiple genome fragments 
+and attempts to use this information to scaffold the genome.
+
+Align the transcripts to the genome:
+
+  Use BLAT to align the transcripts to the genome.
+
+Identify informative split transcripts:
+
+  All transcripts that mapped to more than one contig are flagged. Each mapping is
+then analysed to identify those that map consecutive non-overlapping sections of the
+transcript on separate contigs allowing for an overlap buffer zone of up to 20bp.
+
+Create scaffolds:
+
+  Each transcript-contig complex is assembled by orientating the contigs based on the
+BLAT information and adding 10 N’s in-between the contigs. 
+
+Cluster scaffolds into groups and assemble:
+
+  The contigs used in each transcript-contig complex are then cross-referenced and any
+complexes sharing a contig are grouped. Groups are then assembled using CAP3 and
+default parameters.
+
+Filter the assemblies:
+
+  The assemblies are parsed to identify successful assembly events. Failed assemblies
+are identified and the largest complex kept, the remainder removed.
+
+  Create new contig set:
+
+A new contig set is generated using the successful CAP3 assemblies, the remaining
+complexes and any contig not involved.
