@@ -4,7 +4,7 @@ It procedes via 6 steps:
 
 1. Align the transcripts to the genome:
 
-Use BLAT to align the transcripts to the genome.
+Externally - Use BLAT to align the transcripts to the genome.
 
 2. Identify informative split transcripts:
 
