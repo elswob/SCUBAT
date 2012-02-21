@@ -42,7 +42,7 @@ GetOptions (
 );
 
 if ($target_file eq "" || $query_file eq "" || $psl eq "" || $orientation eq "" || $overlap >20){
-	die("scaffold_contigs_using_BLAT_and_ESTs.pl \n-t contigs file \n-q transcripts file \n-p blat psl output \n-r blat orientation (0 = contigs against transcripts 1 = transcripts against contigs)\n-o overlap length (default 10, max 20)\n-c number of processors (default 1)\n-l min \% coverage length of transcript (default 90)\n -m mismatch score (default 0.92)");
+	die("scaffold_contigs_using_BLAT_and_ESTs.pl \n-t contigs file \n-q transcripts file \n-p blat psl output \n-r blat orientation (0 = contigs against transcripts 1 = transcripts against contigs)\n-o overlap length (default 10, max 20)\n-c number of processors (default 1)\n-l min \% coverage length of transcript (default 90)\n-m mismatch score (default 0.92)");
 } 
 
 
@@ -181,8 +181,6 @@ while (<B>){
 	my @pos = ($start,$stop);
 	my @sort_pos = sort {$a <=> $b} @pos;
 	push(@sort_pos, $or); 
-	#igore the mitochondrion
-	next if $target eq 'contig_144842';
 	#check if contig ID is already in hash array
 	#if more than one hit per query then take the two extreme positions
 	#create a hash of hashes with the sorted positions as values in an array 
@@ -800,7 +798,7 @@ for (sort keys %target_seq){
 }
 #make joined_groups.fa single line fasta
 my $jg_header="";
-my $jg_seq;
+my $jg_seq="";
 open F, "$dir/joined_groups.fa";
 open FOUT,">$dir/joined_groups_sl.fa";
 while(<F>){
