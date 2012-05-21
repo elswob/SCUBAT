@@ -4,6 +4,7 @@ Requirements:
 
 BLAT (external) - to align the transcripts to the genome
 CAP3 (local) - to assemble scaffolds
+GNU parallel (local) - to run the CAP3 assemblies in parallel 
 
 It procedes via 6 steps:
 
