@@ -42,7 +42,7 @@ GetOptions (
 );
 
 if ($target_file eq "" || $query_file eq "" || $psl eq "" || $orientation eq "" || $overlap >20){
-	die("scaffold_contigs_using_BLAT_and_ESTs.pl \n-t contigs file \n-q transcripts file \n-p blat psl output \n-r blat orientation (0 = contigs[target] transcripts[query] 1 = transcripts[target] contigs[query])\n-o overlap length (default 10, max 20)\n-c number of processors (default 1)\n-l min \% coverage length of transcript (default 90)\n-m mismatch score (default 0.92)");
+	die("scaffold_contigs_using_BLAT_and_ESTs.pl \n-t contigs file \n-q transcripts file \n-p blat psl output \n-r blat orientation (0 = contigs[target] transcripts[query] 1 = transcripts[target] contigs[query])\n-o overlap length (default 10, max 20)\n-c number of processors (default 1)\n-l min \% coverage length of transcript (default 90)\n-m mismatch score (default 0.92)\n");
 } 
 
 
