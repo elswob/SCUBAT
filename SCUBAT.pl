@@ -600,8 +600,8 @@ for $current_bin (keys %finalgroup) {
 %join_groups_final = %finalgroup;
 
 
-print "\nBased on shared contigs the groups form ".(keys %join_groups_final)." groups\n";
-print S "Based on shared contigs the groups form ".(keys %join_groups_final)." groups\n";
+print "\nBased on shared contigs the groups form ".(keys %join_groups_final)." super groups\n";
+print S "Based on shared contigs the groups form ".(keys %join_groups_final)." super groups\n";
 
 #open JGF,">$dir/join_groups_final_$overlap.txt";
 #print JGF Dumper( \%join_groups_final );
