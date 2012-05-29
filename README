@@ -1,10 +1,10 @@
-This script uses any set of transcripts to identify cases where a transcript is split over multiple genome fragments 
-and attempts to use this information to scaffold the genome. 
+This script uses any set of transcripts to identify cases where a transcript is split over multiple genome fragments and attempts to use this information to scaffold the genome. 
 
 Requirements:
 
-BLAT - to align the transcripts to the genome
-CAP3 - to assemble scaffolds
+BLAT (external) - to align the transcripts to the genome
+CAP3 (local) - to assemble scaffolds
+GNU parallel (local) - to run the CAP3 assemblies in parallel 
 
 It procedes via 6 steps:
 

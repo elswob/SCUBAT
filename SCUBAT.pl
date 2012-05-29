@@ -23,7 +23,6 @@ my $stop;
 my $target_file = "";
 my $query_file = "";
 my $psl = "";
-my $orientation = "";
 my $overlap = 10;
 my $cores = 1;
 my $cov_length = 90;
@@ -34,15 +33,14 @@ GetOptions (
 	"target=s" => \$target_file,
 	"query=s" => \$query_file,
 	"psl=s" => \$psl,
-	"r=s" => \$orientation,
 	"overlap=s" =>\$overlap,
 	"cores=s" =>\$cores,
 	"length=s" =>\$cov_length,
 	"mismatch=s" =>\$mismatch,
 );
 
-if ($target_file eq "" || $query_file eq "" || $psl eq "" || $orientation eq "" || $overlap >20){
-	die("scaffold_contigs_using_BLAT_and_ESTs.pl \n-t contigs file \n-q transcripts file \n-p blat psl output \n-r blat orientation (0 = contigs[target] transcripts[query] 1 = transcripts[target] contigs[query])\n-o overlap length (default 10, max 20)\n-c number of processors (default 1)\n-l min \% coverage length of transcript (default 90)\n-m mismatch score (default 0.92)");
+if ($target_file eq "" || $query_file eq "" || $psl eq "" || $overlap >20){
+	die("scaffold_contigs_using_BLAT_and_ESTs.pl \n-t contigs file \n-q transcripts file \n-p blat psl output \n-o overlap length (default 10, max 20)\n-c number of processors (default 1)\n-l min \% coverage length of transcript (default 90)\n-m mismatch score (default 0.92)\n");
 } 
 
 
@@ -165,24 +163,14 @@ while (<B>){
 		next;
 	}
 	my $or = $array[8];
-	#change search parameters based on order of blast
-	if ($orientation == 0){
-		$target = $array[13];
-		unless (exists $target_seq{$target}){
-			die("A target seq in the BLAT output is not in the target file!\nPerhaps you have the wrong orientation?\n");
-		}
-		$query = $array[9];
-		$start = $array[11];
-		$stop = $array[12];
-	}else{
-		$target = $array[9];
-		unless (exists $target_seq{$target}){
-			die("The target seq in the BLAT output is not in the target file!\nPerhaps you have the wrong orientation?\n");
-		}
-		$query = $array[13];
-		$start = $array[15];
-		$stop = $array[16];
+	$target = $array[13];
+	unless (exists $target_seq{$target}){
+		die("A target seq in the BLAT output is not in the target file!\nPerhaps you have the wrong orientation?\n");
 	}
+	$query = $array[9];
+	$start = $array[11];
+	$stop = $array[12];
+	
 	#sort the start and stop positions on the subject
 	my @pos = ($start,$stop);
 	my @sort_pos = sort {$a <=> $b} @pos;
