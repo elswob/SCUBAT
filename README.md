@@ -4,9 +4,9 @@ SCUBAT (Scaffolding Contigs Using BLAT And Transcripts) uses any set of transcri
 
 #Software Requirements:
 
-CAP3 - to assemble scaffolds 
+[CAP3](http://www.ncbi.nlm.nih.gov/pubmed/10508846) - to assemble scaffolds 
 
-GNU parallel - to run the CAP3 assemblies in parallel 
+[GNU parallel](http://www.gnu.org/software/parallel/) - to run the CAP3 assemblies in parallel 
 
 #Data requirments
 
