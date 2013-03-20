@@ -12,7 +12,7 @@ use Getopt::Long;
 #4. -o overlap length (max 10 due to possibility of small blat alignments allowing incorrect associations)
 #5. -l length of alignment
 #6. -c number of processors
-#7. -m mismatch value
+#7. -m mismatch score
 
 my %EST_hash=();
 my $target;
