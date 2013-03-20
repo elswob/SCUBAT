@@ -5,14 +5,14 @@ use warnings;
 use Data::Dumper;
 use Getopt::Long;
 
-#8 args
+#7 args
 #1. -t target fasta file
 #2. -q query fasta file
 #3. -p psl BLAT output
-#4. -r 0 or 1 depending on target vs query in blast
-#5. -o overlap length (max 10 due to possibility of small blat alignments allowing incorrect associations)
-#6. -l length of alignment
-#7. -c number of processors
+#4. -o overlap length (max 10 due to possibility of small blat alignments allowing incorrect associations)
+#5. -l length of alignment
+#6. -c number of processors
+#7. -m number of mismatches permitted in BLAT alignment
 
 my %EST_hash=();
 my $target;
