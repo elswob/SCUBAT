@@ -2,13 +2,17 @@
 
 SCUBAT (Scaffolding Contigs Using BLAT And Transcripts) uses any set of transcripts to identify cases where a transcript is split over multiple genome fragments and attempts to use this information to scaffold the genome. 
 
-#Requirements:
+#Software Requirements:
 
-BLAT (external) - to align the transcripts to the genome 
+CAP3 - to assemble scaffolds 
 
-CAP3 (local) - to assemble scaffolds 
+GNU parallel - to run the CAP3 assemblies in parallel 
 
-GNU parallel (local) - to run the CAP3 assemblies in parallel 
+#Data requirments
+
+1. A genome in FASTA format
+2. A set  of transcripts in FASTA format
+3. A BLAT psl file aligning the transcripts to the genome
 
 #Quick guide
 
