@@ -39,7 +39,7 @@ BLAT information and adding 10 N’s in-between the contigs.
 
 ###4) Cluster scaffolds into groups and assemble:
 
-- The contigs used in each transcript-contig complex are then cross-referenced and any complexes sharing a contig are grouped. Groups are then assembled using CAP3 and default parameters.
+- The contigs used in each transcript-contig complex are then cross-referenced and any complexes sharing a contig are grouped. Groups are then assembled using CAP3 with default parameters.
 
 ###5) Filter the assemblies:
 
