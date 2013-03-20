@@ -12,7 +12,7 @@ SCUBAT (Scaffolding Contigs Using BLAT And Transcripts) uses any set of transcri
 
 1. A genome in FASTA format
 2. A set  of transcripts in FASTA format
-3. A BLAT psl file aligning the transcripts to the genome
+3. A [BLAT](http://genome.ucsc.edu/FAQ/FAQblat.html#blat3) psl file aligning the transcripts to the genome
 
 #Quick guide
 
