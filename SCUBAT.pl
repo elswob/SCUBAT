@@ -51,7 +51,7 @@ complexes and any contig not involved.
 
 =cut
 
-#7 args
+#8 args
 #1. -t target fasta file
 #2. -q query fasta file
 #3. -p psl BLAT output
@@ -59,6 +59,7 @@ complexes and any contig not involved.
 #5. -l length of alignment
 #6. -c number of processors
 #7. -m mismatch score
+#8. -j additional commands for the joiner program
 
 my %EST_hash=();
 my $target;
@@ -75,6 +76,7 @@ my $cov_length = 90;
 my $joiner = 'cap3';
 my $mismatch = 90;
 my $max_cap = 100000000;
+my $join_modifiers = "";
 
 GetOptions (
 	"target=s" => \$target_file,
@@ -85,10 +87,11 @@ GetOptions (
 	"length=s" =>\$cov_length,
 	"mismatch=s" =>\$mismatch,
 	"a=s" =>\$max_cap,
+	"join_commands=s" =>\$join_modifiers,
 );
 
 if ($target_file eq "" || $query_file eq "" || $psl eq "" || $overlap >20){
-	die("SCUBAT.pl \n-t contigs file \n-q transcripts file \n-p blat psl output \n-o overlap length (default 10, max 20)\n-c number of processors (default 1)\n-l min \% coverage length of transcript (default 90)\n-m mismatch score (default 0.92)\n-a max size of file for cap3 (default 100000000)\n");
+	die("SCUBAT.pl \n-t contigs file \n-q transcripts file \n-p blat psl output \n-o overlap length (default 10, max 20)\n-c number of processors (default 1)\n-l min \% coverage length of transcript (default 90)\n-m mismatch score (default 0.92)\n-a max size of file for cap3 (default 100000000)\n-j additional commands for joiner program\n");
 } 
 
 
@@ -705,7 +708,7 @@ for my $k1 (sort {$a<=>$b} keys %join_groups_final){
 		#check file size isn't too big
 		my $size_check = -s "$dir/join/$k1/$k1.cat";
 		if ($size_check < $max_cap){
-			print JOIN "$joiner $dir/join/$k1/$k1.cat > $dir/join/$k1/$k1.log 2> $dir/join/$k1/$k1.err\n";
+			print JOIN "$joiner $dir/join/$k1/$k1.cat $join_modifiers > $dir/join/$k1/$k1.log 2> $dir/join/$k1/$k1.err\n";
 			#print CAP "phrap $dir/join/$k1/$k1.cat > $dir/join/$k1/$k1.log\n";
 		}else{
 			print "$dir/join/$k1/$k1.cat is too big - $size_check\n";
